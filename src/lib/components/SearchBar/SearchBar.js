@@ -42,7 +42,6 @@ class SearchBar extends Component {
 
   render() {
     const {
-      buttonColor,
       currentQueryString,
       executeSearch: parentSearch,
       onKeyPressHandler,
@@ -54,13 +53,13 @@ class SearchBar extends Component {
       ...otherProps
     } = this.props;
     const { currentValue } = this.state;
+    const searchAction = parentSearch || this.executeSearch;
     return (
       <>
         <Input
           action={{
-            color: buttonColor,
             icon: 'search',
-            onClick: parentSearch || this.executeSearch,
+            onClick: searchAction,
           }}
           size="big"
           fluid
@@ -91,7 +90,6 @@ class SearchBar extends Component {
 }
 
 SearchBar.propTypes = {
-  buttonColor: PropTypes.string,
   executeSearch: PropTypes.func,
   currentQueryString: PropTypes.string,
   onKeyPressHandler: PropTypes.func,
@@ -103,7 +101,6 @@ SearchBar.propTypes = {
 };
 
 SearchBar.defaultProps = {
-  buttonColor: null,
   currentQueryString: null,
   executeSearch: null,
   onKeyPressHandler: null,
