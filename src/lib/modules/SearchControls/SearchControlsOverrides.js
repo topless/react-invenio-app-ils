@@ -1,4 +1,4 @@
-import SearchBar from '@components/SearchBar/SearchBar';
+import { SearchBar } from '@components/SearchBar';
 import { MenuBucketAggregationValueElementOverrides } from '@modules/SearchControls/overridden/MenuBucketAggregationElement';
 import { AvailableLoanBucketAggregationValues } from './overridden/AvailableLoanBucketAggregationValues';
 import { AvailableLoanBucketAggregationElement } from './overridden/AvailableLoanBucketAggregationElement';
