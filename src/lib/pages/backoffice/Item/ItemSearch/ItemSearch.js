@@ -23,6 +23,7 @@ import { responseRejectInterceptor } from '@api/base';
 import SearchAggregationsCards from '@modules/SearchControls/SearchAggregationsCards';
 import SearchFooter from '@modules/SearchControls/SearchFooter';
 import { SearchControls } from '@modules/SearchControls/SearchControls';
+import { QueryBuildHelper } from '@components/SearchBar/QueryBuildHelper';
 
 export class ItemSearch extends Component {
   searchApi = new InvenioSearchApi({
@@ -73,10 +74,8 @@ export class ItemSearch extends Component {
           <ReactSearchKit searchApi={this.searchApi} history={history}>
             <>
               <Container fluid className="spaced">
-                <SearchBar
-                  placeholder="Search for physical copies..."
-                  queryHelperFields={helperFields}
-                />
+                <SearchBar placeholder="Search for physical copies..." />
+                <QueryBuildHelper fields={helperFields} />
               </Container>
 
               <Container fluid className="bo-search-body">

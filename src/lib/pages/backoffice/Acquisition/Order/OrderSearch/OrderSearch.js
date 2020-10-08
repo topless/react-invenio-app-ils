@@ -4,6 +4,7 @@ import { ExportReactSearchKitResults } from '@components/backoffice/ExportSearch
 import history from '@history';
 import SearchAggregationsCards from '@modules/SearchControls/SearchAggregationsCards';
 import { SearchControls } from '@modules/SearchControls/SearchControls';
+import { QueryBuildHelper } from '@components/SearchBar/QueryBuildHelper';
 import { SearchControlsOverridesMap } from '@modules/SearchControls/SearchControlsOverrides';
 import SearchFooter from '@modules/SearchControls/SearchFooter';
 import { AcquisitionRoutes } from '@routes/urls';
@@ -74,10 +75,8 @@ export class OrderSearch extends Component {
           <ReactSearchKit searchApi={this.searchApi} history={history}>
             <>
               <Container fluid className="spaced">
-                <SearchBar
-                  placeholder="Search for orders..."
-                  queryHelperFields={helperFields}
-                />
+                <SearchBar placeholder="Search for orders..." />
+                <QueryBuildHelper fields={helperFields} />
               </Container>
               <Container fluid className="bo-search-body">
                 <Grid>

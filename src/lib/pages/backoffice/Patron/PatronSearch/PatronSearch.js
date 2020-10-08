@@ -1,6 +1,7 @@
 import SearchAggregationsCards from '@modules/SearchControls/SearchAggregationsCards';
 import { SearchControls } from '@modules/SearchControls/SearchControls';
 import { SearchControlsOverridesMap } from '@modules/SearchControls/SearchControlsOverrides';
+import { QueryBuildHelper } from '@components/SearchBar/QueryBuildHelper';
 import SearchFooter from '@modules/SearchControls/SearchFooter';
 import { PatronResultsList } from './PatronResultsList';
 import React, { Component } from 'react';
@@ -56,10 +57,8 @@ export class PatronSearch extends Component {
           <ReactSearchKit searchApi={this.searchApi}>
             <>
               <Container fluid className="spaced">
-                <SearchBar
-                  placeholder="Search for patrons"
-                  queryHelperFields={helperFields}
-                />
+                <SearchBar placeholder="Search for patrons" />
+                <QueryBuildHelper fields={helperFields} />
               </Container>
               <Grid>
                 <Grid.Row columns={2}>
@@ -76,13 +75,14 @@ export class PatronSearch extends Component {
                           />
                         </Grid.Column>
                         <Grid.Column>
-                          <EmptyResults />
                           <Error />
                           <SearchControls
                             modelName="PATRONS"
                             withLayoutSwitcher={false}
                           />
-                          <ResultsList />
+                          <ResultsList
+                            renderEmptyResultsElement={() => <EmptyResults />}
+                          />
                           <SearchFooter />
                         </Grid.Column>
                       </Grid>

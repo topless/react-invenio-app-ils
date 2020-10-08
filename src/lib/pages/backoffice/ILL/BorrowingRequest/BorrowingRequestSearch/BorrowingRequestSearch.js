@@ -5,6 +5,7 @@ import history from '@history';
 import SearchAggregationsCards from '@modules/SearchControls/SearchAggregationsCards';
 import { SearchControls } from '@modules/SearchControls/SearchControls';
 import { SearchControlsOverridesMap } from '@modules/SearchControls/SearchControlsOverrides';
+import { QueryBuildHelper } from '@components/SearchBar/QueryBuildHelper';
 import SearchFooter from '@modules/SearchControls/SearchFooter';
 import { ILLRoutes } from '@routes/urls';
 import BorrowingRequestListEntry from './BorrowingRequestList/BorrowingRequestListEntry';
@@ -58,10 +59,8 @@ export class BorrowingRequestSearch extends Component {
           <ReactSearchKit searchApi={this.searchApi} history={history}>
             <>
               <Container fluid className="spaced">
-                <SearchBar
-                  placeholder="Search for borrowing requests..."
-                  queryHelperFields={helperFields}
-                />
+                <SearchBar placeholder="Search for borrowing requests..." />
+                <QueryBuildHelper fields={helperFields} />
               </Container>
               <Container fluid className="bo-search-body">
                 <Grid>

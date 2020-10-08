@@ -1,6 +1,7 @@
 import SearchAggregationsCards from '@modules/SearchControls/SearchAggregationsCards';
 import { SearchControls } from '@modules/SearchControls/SearchControls';
 import { SearchControlsOverridesMap } from '@modules/SearchControls/SearchControlsOverrides';
+import { QueryBuildHelper } from '@components/SearchBar/QueryBuildHelper';
 import SearchFooter from '@modules/SearchControls/SearchFooter';
 import EItemListEntry from './EItemListEntry';
 import { OverridableContext } from 'react-overridable';
@@ -75,10 +76,8 @@ export class EItemSearch extends Component {
           <ReactSearchKit searchApi={this.searchApi} history={history}>
             <>
               <Container fluid className="spaced">
-                <SearchBar
-                  placeholder="Search for eitems..."
-                  queryHelperFields={helperFields}
-                />
+                <SearchBar placeholder="Search for eitems..." />
+                <QueryBuildHelper fields={helperFields} />
               </Container>
               <Grid>
                 <Grid.Row columns={2}>

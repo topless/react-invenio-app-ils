@@ -2,6 +2,7 @@ import SearchAggregationsCards from '@modules/SearchControls/SearchAggregationsC
 import { SearchControls } from '@modules/SearchControls/SearchControls';
 import { SearchControlsOverridesMap } from '@modules/SearchControls/SearchControlsOverrides';
 import SearchFooter from '@modules/SearchControls/SearchFooter';
+import { QueryBuildHelper } from '@components/SearchBar/QueryBuildHelper';
 import { DocumentRequestListEntry } from './DocumentRequestListEntry';
 import { OverridableContext } from 'react-overridable';
 import React, { Component } from 'react';
@@ -58,10 +59,8 @@ export class DocumentRequestSearch extends Component {
           <ReactSearchKit searchApi={this.searchApi} history={history}>
             <>
               <Container fluid className="spaced">
-                <SearchBar
-                  placeholder="Search for document requests"
-                  queryHelperFields={helperFields}
-                />
+                <SearchBar placeholder="Search for document requests" />
+                <QueryBuildHelper fields={helperFields} />
               </Container>
               <Grid>
                 <Grid.Row columns={2}>

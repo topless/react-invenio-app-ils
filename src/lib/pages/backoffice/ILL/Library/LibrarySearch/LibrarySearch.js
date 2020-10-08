@@ -4,6 +4,7 @@ import { ExportReactSearchKitResults } from '@components/backoffice/ExportSearch
 import history from '@history';
 import { SearchControls } from '@modules/SearchControls/SearchControls';
 import { SearchControlsOverridesMap } from '@modules/SearchControls/SearchControlsOverrides';
+import { QueryBuildHelper } from '@components/SearchBar/QueryBuildHelper';
 import SearchFooter from '@modules/SearchControls/SearchFooter';
 import { ILLRoutes } from '@routes/urls';
 import { LibraryListEntry } from './LibraryList';
@@ -46,6 +47,7 @@ export class LibrarySearch extends Component {
         defaultValue: '"Geneva"',
       },
     ];
+    console.log(helperFields);
     return (
       <>
         <Header as="h2">Libraries</Header>
@@ -57,10 +59,8 @@ export class LibrarySearch extends Component {
           <ReactSearchKit searchApi={this.searchApi} history={history}>
             <>
               <Container fluid className="spaced">
-                <SearchBar
-                  queryHelperFields={helperFields}
-                  placeholder="Search for libaries..."
-                />
+                <SearchBar placeholder="Search for libaries..." />
+                <QueryBuildHelper fields={helperFields} />
               </Container>
               <Container fluid className="bo-search-body">
                 <Grid>

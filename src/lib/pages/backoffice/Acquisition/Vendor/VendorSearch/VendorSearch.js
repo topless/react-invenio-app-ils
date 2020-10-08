@@ -3,6 +3,7 @@ import { NewButton } from '@components/backoffice/buttons/NewButton';
 import { ExportReactSearchKitResults } from '@components/backoffice/ExportSearchResults';
 import history from '@history';
 import { SearchControls } from '@modules/SearchControls/SearchControls';
+import { QueryBuildHelper } from '@components/SearchBar/QueryBuildHelper';
 import { SearchControlsOverridesMap } from '@modules/SearchControls/SearchControlsOverrides';
 import SearchFooter from '@modules/SearchControls/SearchFooter';
 import { AcquisitionRoutes } from '@routes/urls';
@@ -33,7 +34,7 @@ export class VendorSearch extends Component {
       {
         name: 'name',
         field: 'name',
-        defaultValue: '"Test vendor"',
+        defaultValue: '"Vendor Name"',
       },
       {
         name: 'email',
@@ -43,7 +44,7 @@ export class VendorSearch extends Component {
       {
         name: 'address',
         field: 'address',
-        defaultValue: '"Geneva"',
+        defaultValue: '"Vendor Address"',
       },
     ];
 
@@ -58,10 +59,8 @@ export class VendorSearch extends Component {
           <ReactSearchKit searchApi={this.searchApi} history={history}>
             <>
               <Container fluid className="spaced">
-                <SearchBar
-                  placeholder="Search for vendors..."
-                  queryHelperFields={helperFields}
-                />
+                <SearchBar placeholder="Search for vendors..." />
+                <QueryBuildHelper fields={helperFields} />
               </Container>
               <Container fluid className="bo-search-body">
                 <Grid>

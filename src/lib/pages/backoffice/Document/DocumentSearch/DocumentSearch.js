@@ -20,6 +20,7 @@ import { NewButton } from '@components/backoffice/buttons/NewButton';
 import SearchAggregationsCards from '@modules/SearchControls/SearchAggregationsCards';
 import SearchFooter from '@modules/SearchControls/SearchFooter';
 import { SearchControls } from '@modules/SearchControls/SearchControls';
+import { QueryBuildHelper } from '@components/SearchBar/QueryBuildHelper';
 import history from '@history';
 
 export class DocumentSearch extends Component {
@@ -59,10 +60,8 @@ export class DocumentSearch extends Component {
           <ReactSearchKit searchApi={this.searchApi} history={history}>
             <>
               <Container fluid className="spaced">
-                <SearchBar
-                  queryHelperFields={helperFields}
-                  placeholder="Search for documents..."
-                />
+                <SearchBar placeholder="Search for documents..." />
+                <QueryBuildHelper fields={helperFields} />
               </Container>
               <Container fluid className="bo-search-body">
                 <Grid>
