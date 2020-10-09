@@ -70,6 +70,4 @@ _QueryBuildHelper.propTypes = {
   currentQueryState: PropTypes.object.isRequired,
 };
 
-_QueryBuildHelper.defaultProps = {};
-
 export const QueryBuildHelper = withState(_QueryBuildHelper);

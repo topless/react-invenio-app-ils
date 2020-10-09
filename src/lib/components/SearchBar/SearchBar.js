@@ -2,6 +2,62 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Input } from 'semantic-ui-react';
 
+/** This SearchBar overrides the search bar of react-searchkit */
+export class RSKSearchBar extends Component {
+  componentDidMount() {
+    if (this.focusInput) {
+      this.focusInput.focus();
+    }
+  }
+
+  render() {
+    const {
+      onBtnSearchClick,
+      onInputChange,
+      onKeyPress,
+      placeholder,
+      queryString,
+    } = this.props;
+
+    return (
+      <Input
+        action={{
+          icon: 'search',
+          onClick: onBtnSearchClick,
+        }}
+        fluid
+        size="big"
+        className="ils-searchbar"
+        placeholder={placeholder}
+        onChange={(event, { value }) => {
+          onInputChange(value);
+        }}
+        value={queryString}
+        onKeyPress={onKeyPress}
+        ref={input => {
+          this.focusInput = input;
+        }}
+      />
+    );
+  }
+}
+
+RSKSearchBar.propTypes = {
+  onBtnSearchClick: PropTypes.func,
+  onKeyPress: PropTypes.func,
+  onInputChange: PropTypes.func,
+  placeholder: PropTypes.string,
+  queryString: PropTypes.string,
+};
+
+RSKSearchBar.defaultProps = {
+  onBtnSearchClick: null,
+  onInputChange: null,
+  onKeyPress: null,
+  placeholder: null,
+  queryString: null,
+};
+
 class SearchBar extends Component {
   constructor(props) {
     super(props);
@@ -45,7 +101,6 @@ class SearchBar extends Component {
       executeSearch: parentSearch,
       onKeyPressHandler,
       placeholder,
-      queryHelperFields,
       queryString,
       updateQueryOnChange,
       updateQueryString,
@@ -80,90 +135,24 @@ class SearchBar extends Component {
 }
 
 SearchBar.propTypes = {
-  children: PropTypes.node,
-  executeSearch: PropTypes.func,
   currentQueryString: PropTypes.string,
+  executeSearch: PropTypes.func,
+  onInputChange: PropTypes.func,
   onKeyPressHandler: PropTypes.func,
   placeholder: PropTypes.string,
-  queryHelperFields: PropTypes.array,
   queryString: PropTypes.string,
   updateQueryOnChange: PropTypes.bool,
   updateQueryString: PropTypes.func.isRequired,
 };
 
 SearchBar.defaultProps = {
-  children: null,
   currentQueryString: null,
   executeSearch: null,
+  onInputChange: null,
   onKeyPressHandler: null,
   placeholder: 'Search for books, series, articles, publications...',
-  queryHelperFields: [],
   queryString: '',
   updateQueryOnChange: false,
 };
 
 export default SearchBar;
-
-// export const SearchBarElement
-/* {queryHelperFields.length > 0 && (
-  <QueryBuildHelper
-    fields={queryHelperFields}
-    currentQueryString={currentQueryString || queryString}
-    updateQueryString={this.onInputChange}
-  />
-)}
-</> */
-
-export const SearchBarElement = props => {
-  const {
-    executeSearch,
-    placeholder,
-    onKeyPress,
-    onInputChange,
-    queryString,
-    queryBuilder,
-    children,
-    ...rest
-  } = props;
-  const { className } = rest;
-  //eslint-disable-next-line
-  // debugger;
-  return (
-    <>
-      <Input
-        action={{
-          icon: 'search',
-          onClick: executeSearch,
-        }}
-        fluid
-        size="big"
-        className={`${className} ils-searchbar`}
-        placeholder={placeholder}
-        onChange={(event, { value }) => {
-          onInputChange(value);
-        }}
-        value={queryString}
-        onKeyPress={onKeyPress}
-      />
-      {queryBuilder}
-      {children}
-    </>
-  );
-};
-
-SearchBarElement.propTypes = {
-  children: PropTypes.node,
-  queryBuilder: PropTypes.node,
-  executeSearch: PropTypes.func.isRequired,
-  onInputChange: PropTypes.func.isRequired,
-  onKeyPress: PropTypes.func.isRequired,
-  placeholder: PropTypes.node.isRequired,
-  queryString: PropTypes.string.isRequired,
-  className: PropTypes.string,
-};
-
-SearchBarElement.defaultProps = {
-  queryBuilder: null,
-  className: '',
-  children: null,
-};

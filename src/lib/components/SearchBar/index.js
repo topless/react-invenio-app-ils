@@ -1,1 +1,1 @@
-export { default as SearchBar, SearchBarElement } from './SearchBar';
+export { default as SearchBar, RSKSearchBar } from './SearchBar';
