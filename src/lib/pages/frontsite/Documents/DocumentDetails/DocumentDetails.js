@@ -3,7 +3,7 @@ import { AuthenticationGuard } from '@authentication/components/AuthenticationGu
 import { Breadcrumbs } from '@components/Breadcrumbs';
 import { Error } from '@components/Error';
 import { ILSParagraphPlaceholder } from '@components/ILSPlaceholder';
-import { SearchBar } from '@components/SearchBar';
+import { RedirectSearchBar } from '@components/SearchBar';
 import { goTo } from '@history';
 import { DocumentStats } from '@modules/Document/DocumentStats';
 import LiteratureTags from '@modules/Literature/LiteratureTags';
@@ -170,7 +170,7 @@ class DocumentDetails extends Component {
         >
           <Container fluid className="literature-search-container">
             <Container>
-              <SearchBar updateQueryString={this.onSearchClick} />
+              <RedirectSearchBar onSearch={this.onSearchClick} />
             </Container>
           </Container>
         </Overridable>

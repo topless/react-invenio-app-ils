@@ -40,13 +40,12 @@ class LiteratureSearch extends Component {
   };
 
   render() {
+    const overrideValues = {
+      ...SearchControlsOverridesMap,
+      ...LiteratureSearchOverridesMap,
+    };
     return (
-      <OverridableContext.Provider
-        value={{
-          ...SearchControlsOverridesMap,
-          ...LiteratureSearchOverridesMap,
-        }}
-      >
+      <OverridableContext.Provider value={overrideValues}>
         <ReactSearchKit
           searchApi={this.searchApi}
           history={history}
