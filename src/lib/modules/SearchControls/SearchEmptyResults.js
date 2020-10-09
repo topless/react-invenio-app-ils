@@ -11,7 +11,7 @@ export default class SearchEmptyResults extends Component {
       <SearchMessage title="No results found searching for" icon="search">
         {queryString && (
           <Segment.Inline>
-            <Header as="h1">{queryString}</Header>
+            <Header as="h1">"{queryString}"</Header>
             <ClearButton clickHandler={resetQuery} />
             {extraContent}
           </Segment.Inline>
@@ -23,11 +23,12 @@ export default class SearchEmptyResults extends Component {
 
 SearchEmptyResults.propTypes = {
   queryString: PropTypes.string,
-  resetQuery: PropTypes.func.isRequired,
+  resetQuery: PropTypes.func,
   extraContent: PropTypes.node,
 };
 
 SearchEmptyResults.defaultProps = {
   queryString: '',
+  resetQuery: null,
   extraContent: null,
 };
