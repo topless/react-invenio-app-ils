@@ -2,47 +2,8 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Input } from 'semantic-ui-react';
 
-export class ILSSearchBar extends Component {
-  componentDidMount() {
-    if (this.searchInput) {
-      this.searchInput.focus();
-    }
-  }
-
-  render() {
-    const { onBtnSearchClick, placeholder } = this.props;
-    return (
-      <Input
-        action={{
-          icon: 'search',
-          onClick: onBtnSearchClick,
-        }}
-        fluid
-        size="big"
-        className="ils-searchbar"
-        placeholder={placeholder}
-        // onChange={(event, { value }) => {
-        //   onInputChange(value);
-        // }}
-        // value={queryString}
-        // onKeyPress={onKeyPress}
-        ref={input => {
-          this.searchInput = input;
-        }}
-      />
-    );
-  }
-}
-
-ILSSearchBar.propTypes = {
-  onBtnSearchClick: PropTypes.func.isRequired,
-  placeholder: PropTypes.string,
-};
-
-ILSSearchBar.defaultProps = {
-  placeholder: '',
-};
-
+// NOTE: Deprecated, when the last 2 cases are addressed AvailableItems in LoanDetails
+// and ItemSearch in PatronDetails this file will be deleted.
 class SearchBar extends Component {
   constructor(props) {
     super(props);

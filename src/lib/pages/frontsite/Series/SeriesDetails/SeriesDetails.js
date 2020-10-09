@@ -2,7 +2,7 @@ import { AuthenticationGuard } from '@authentication/components/AuthenticationGu
 import { Breadcrumbs } from '@components/Breadcrumbs';
 import { Error } from '@components/Error';
 import { ILSParagraphPlaceholder } from '@components/ILSPlaceholder';
-import { RedirectSearchBar } from '@components/SearchBar';
+import { SearchBarILS } from '@components/SearchBar';
 import { goTo } from '@history';
 import { SeriesLiteratureSearch } from '@modules/Series/SeriesLiteratureSearch';
 import { BackOfficeRoutes, FrontSiteRoutes } from '@routes/urls';
@@ -147,7 +147,7 @@ class SeriesDetails extends React.Component {
             executeSearch={this.onSearchClick}
           >
             <Container>
-              <RedirectSearchBar onSearch={this.onSearchClick} />
+              <SearchBarILS onSearch={this.onSearchClick} />
             </Container>
           </Overridable>
         </Container>

@@ -1,2 +1,2 @@
-export { default as SearchBar, ILSSearchBar } from './SearchBar';
-export { RedirectSearchBar } from './RedirectSearchBar';
+export { default as SearchBar } from './SearchBar';
+export { SearchBarILS } from './SearchBarILS';

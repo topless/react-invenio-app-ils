@@ -62,14 +62,6 @@ export default class ItemsSearch extends Component {
     }
   };
 
-  onKeyPressHandler = e => {
-    const { queryString } = this.props;
-    this.setState({ executedSearch: false });
-    if (e.key === 'Enter' && queryString) {
-      this.executeSearch();
-    }
-  };
-
   onSearchClickHandler = event => this.executeSearch();
 
   renderResultsList = results => {
@@ -89,7 +81,6 @@ export default class ItemsSearch extends Component {
 
   clearSearchQuery = () => {
     const { clearResults } = this.props;
-
     // eslint-disable-next-line react/no-unused-state
     this.setState({ prevSearchQuery: '' });
     clearResults();
@@ -114,7 +105,6 @@ export default class ItemsSearch extends Component {
             currentQueryString={queryString}
             updateQueryOnChange
             executeSearch={this.executeSearch}
-            onKeyPressHandler={this.onKeyPressHandler}
             updateQueryString={updateQueryString}
             placeholder="Type or paste to search for physical copies..."
             onPaste={e => this.onPasteHandler(e)}
