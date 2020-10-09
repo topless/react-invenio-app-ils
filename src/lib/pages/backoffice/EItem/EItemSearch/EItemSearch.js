@@ -17,7 +17,7 @@ import {
   Error,
   InvenioSearchApi,
 } from 'react-searchkit';
-import { getSearchConfig } from '@config';
+import { invenioConfig, getSearchConfig } from '@config';
 import { eItemApi } from '@api/eitems';
 import { responseRejectInterceptor } from '@api/base';
 import { ExportReactSearchKitResults } from '@components/backoffice/ExportSearchResults';
@@ -76,7 +76,10 @@ export class EItemSearch extends Component {
           <ReactSearchKit searchApi={this.searchApi} history={history}>
             <>
               <Container fluid className="spaced">
-                <SearchBar placeholder="Search for eitems..." />
+                <SearchBar
+                  placeholder="Search for eitems..."
+                  {...invenioConfig.APP.searchBarRSKProps}
+                />
                 <QueryBuildHelper fields={helperFields} />
               </Container>
               <Grid>

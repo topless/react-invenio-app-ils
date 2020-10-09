@@ -21,6 +21,7 @@ import SearchAggregationsCards from '@modules/SearchControls/SearchAggregationsC
 import SearchFooter from '@modules/SearchControls/SearchFooter';
 import { SearchControls } from '@modules/SearchControls/SearchControls';
 import { QueryBuildHelper } from '@components/SearchBar/QueryBuildHelper';
+import { invenioConfig } from '@config';
 import history from '@history';
 
 export class DocumentSearch extends Component {
@@ -60,7 +61,10 @@ export class DocumentSearch extends Component {
           <ReactSearchKit searchApi={this.searchApi} history={history}>
             <>
               <Container fluid className="spaced">
-                <SearchBar placeholder="Search for documents..." />
+                <SearchBar
+                  placeholder="Search for documents..."
+                  {...invenioConfig.APP.searchBarRSKProps}
+                />
                 <QueryBuildHelper fields={helperFields} />
               </Container>
               <Container fluid className="bo-search-body">

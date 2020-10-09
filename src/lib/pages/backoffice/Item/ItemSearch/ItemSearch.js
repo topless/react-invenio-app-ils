@@ -12,7 +12,7 @@ import {
   InvenioSearchApi,
   EmptyResults,
 } from 'react-searchkit';
-import { getSearchConfig } from '@config';
+import { invenioConfig, getSearchConfig } from '@config';
 import { Error as IlsError } from '@components/Error';
 import { itemApi } from '@api/items';
 import { ExportReactSearchKitResults } from '@components/backoffice/ExportSearchResults';
@@ -74,7 +74,10 @@ export class ItemSearch extends Component {
           <ReactSearchKit searchApi={this.searchApi} history={history}>
             <>
               <Container fluid className="spaced">
-                <SearchBar placeholder="Search for physical copies..." />
+                <SearchBar
+                  placeholder="Search for physical copies..."
+                  {...invenioConfig.APP.searchBarRSKProps}
+                />
                 <QueryBuildHelper fields={helperFields} />
               </Container>
 

@@ -21,6 +21,7 @@ import {
   SearchBar,
 } from 'react-searchkit';
 import { Container, Grid, Header } from 'semantic-ui-react';
+import { invenioConfig } from '@config';
 
 export class BorrowingRequestSearch extends Component {
   searchApi = new InvenioSearchApi({
@@ -59,7 +60,10 @@ export class BorrowingRequestSearch extends Component {
           <ReactSearchKit searchApi={this.searchApi} history={history}>
             <>
               <Container fluid className="spaced">
-                <SearchBar placeholder="Search for borrowing requests..." />
+                <SearchBar
+                  placeholder="Search for borrowing requests..."
+                  {...invenioConfig.APP.searchBarRSKProps}
+                />
                 <QueryBuildHelper fields={helperFields} />
               </Container>
               <Container fluid className="bo-search-body">

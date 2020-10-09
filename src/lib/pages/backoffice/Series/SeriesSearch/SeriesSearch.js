@@ -19,7 +19,7 @@ import {
 } from 'react-searchkit';
 import { seriesApi } from '@api/series/series';
 import { responseRejectInterceptor } from '@api/base';
-import { getSearchConfig } from '@config';
+import { invenioConfig, getSearchConfig } from '@config';
 import { ExportReactSearchKitResults } from '@components/backoffice/ExportSearchResults';
 import { NewButton } from '@components/backoffice/buttons/NewButton';
 import { BackOfficeRoutes } from '@routes/urls';
@@ -72,7 +72,10 @@ export class SeriesSearch extends Component {
           <ReactSearchKit searchApi={this.searchApi} history={history}>
             <>
               <Container fluid className="spaced">
-                <SearchBar placeholder="Search for series" />
+                <SearchBar
+                  placeholder="Search for series"
+                  {...invenioConfig.APP.searchBarRSKProps}
+                />
                 <QueryBuildHelper fields={helperFields} />
               </Container>
               <Grid>

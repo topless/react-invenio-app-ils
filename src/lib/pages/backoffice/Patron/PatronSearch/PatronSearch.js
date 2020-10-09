@@ -18,7 +18,7 @@ import {
 } from 'react-searchkit';
 import { patronApi } from '@api/patrons';
 import { responseRejectInterceptor } from '@api/base';
-import { getSearchConfig } from '@config';
+import { invenioConfig, getSearchConfig } from '@config';
 import { ExportReactSearchKitResults } from '@components/backoffice/ExportSearchResults';
 
 export class PatronSearch extends Component {
@@ -57,7 +57,10 @@ export class PatronSearch extends Component {
           <ReactSearchKit searchApi={this.searchApi}>
             <>
               <Container fluid className="spaced">
-                <SearchBar placeholder="Search for patrons" />
+                <SearchBar
+                  placeholder="Search for patrons"
+                  {...invenioConfig.APP.searchBarRSKProps}
+                />
                 <QueryBuildHelper fields={helperFields} />
               </Container>
               <Grid>

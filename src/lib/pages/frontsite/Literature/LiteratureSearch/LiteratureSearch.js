@@ -20,6 +20,7 @@ import {
 import { Container, Grid, Header, Loader, Responsive } from 'semantic-ui-react';
 import LiteratureSearchMobile from './LiteratureSearchMobile';
 import SearchMessage from './SearchMessage/SearchMessage';
+import { invenioConfig } from '@config';
 
 class LiteratureSearch extends Component {
   searchApi = new InvenioSearchApi({
@@ -55,7 +56,10 @@ class LiteratureSearch extends Component {
             <>
               <Container fluid className="literature-search-container">
                 <Container>
-                  <SearchBar placeholder="Search for books, series, articles, publications..." />
+                  <SearchBar
+                    placeholder="Search for books, series, articles, publications..."
+                    {...invenioConfig.APP.searchBarRSKProps}
+                  />
                 </Container>
               </Container>
               <Responsive minWidth={Responsive.onlyComputer.minWidth}>

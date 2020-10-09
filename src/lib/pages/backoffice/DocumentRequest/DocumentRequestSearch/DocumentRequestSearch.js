@@ -17,7 +17,7 @@ import {
   EmptyResults,
 } from 'react-searchkit';
 import { documentRequestApi } from '@api/documentRequests';
-import { getSearchConfig } from '@config';
+import { invenioConfig, getSearchConfig } from '@config';
 import { ExportReactSearchKitResults } from '@components/backoffice/ExportSearchResults';
 import history from '@history';
 import { responseRejectInterceptor } from '@api/base';
@@ -59,7 +59,10 @@ export class DocumentRequestSearch extends Component {
           <ReactSearchKit searchApi={this.searchApi} history={history}>
             <>
               <Container fluid className="spaced">
-                <SearchBar placeholder="Search for document requests" />
+                <SearchBar
+                  placeholder="Search for document requests"
+                  {...invenioConfig.APP.searchBarRSKProps}
+                />
                 <QueryBuildHelper fields={helperFields} />
               </Container>
               <Grid>
