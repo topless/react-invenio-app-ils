@@ -9,14 +9,12 @@ import SearchResultsList from './SearchResultsList';
 import SearchEmptyResults from './SearchEmptyResults';
 import { CardBucketAggregationValueElementOverrides } from './overridden/CardBucketAggregationValueElement';
 import { SearchError } from '@modules/SearchControls/SearchError';
-import { RSKSearchBar } from '@components/SearchBar';
 
 export const SearchControlsOverridesMap = {
   'BucketAggregationValues.element.card': CardBucketAggregationValueElementOverrides,
   'BucketAggregation.element.menu': MenuBucketAggregationValueElementOverrides,
   'BucketAggregation.element.available-for-loan': AvailableLoanBucketAggregationElement,
   'BucketAggregationValues.element.available-for-loan': AvailableLoanBucketAggregationValues,
-  'SearchBar.element': RSKSearchBar,
   'EmptyResults.element': SearchEmptyResults,
   'Error.element': SearchError,
   ResultsList: SearchResultsList,

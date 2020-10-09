@@ -2,23 +2,15 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Input } from 'semantic-ui-react';
 
-/** This SearchBar overrides the search bar of react-searchkit */
-export class RSKSearchBar extends Component {
+export class ILSSearchBar extends Component {
   componentDidMount() {
-    if (this.focusInput) {
-      this.focusInput.focus();
+    if (this.searchInput) {
+      this.searchInput.focus();
     }
   }
 
   render() {
-    const {
-      onBtnSearchClick,
-      onInputChange,
-      onKeyPress,
-      placeholder,
-      queryString,
-    } = this.props;
-
+    const { onBtnSearchClick, placeholder } = this.props;
     return (
       <Input
         action={{
@@ -29,33 +21,26 @@ export class RSKSearchBar extends Component {
         size="big"
         className="ils-searchbar"
         placeholder={placeholder}
-        onChange={(event, { value }) => {
-          onInputChange(value);
-        }}
-        value={queryString}
-        onKeyPress={onKeyPress}
+        // onChange={(event, { value }) => {
+        //   onInputChange(value);
+        // }}
+        // value={queryString}
+        // onKeyPress={onKeyPress}
         ref={input => {
-          this.focusInput = input;
+          this.searchInput = input;
         }}
       />
     );
   }
 }
 
-RSKSearchBar.propTypes = {
-  onBtnSearchClick: PropTypes.func,
-  onKeyPress: PropTypes.func,
-  onInputChange: PropTypes.func,
+ILSSearchBar.propTypes = {
+  onBtnSearchClick: PropTypes.func.isRequired,
   placeholder: PropTypes.string,
-  queryString: PropTypes.string,
 };
 
-RSKSearchBar.defaultProps = {
-  onBtnSearchClick: null,
-  onInputChange: null,
-  onKeyPress: null,
-  placeholder: null,
-  queryString: null,
+ILSSearchBar.defaultProps = {
+  placeholder: '',
 };
 
 class SearchBar extends Component {

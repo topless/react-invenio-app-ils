@@ -1,1 +1,1 @@
-export { default as SearchBar, RSKSearchBar } from './SearchBar';
+export { default as SearchBar, ILSSearchBar } from './SearchBar';
