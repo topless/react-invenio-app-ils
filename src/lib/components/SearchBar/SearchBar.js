@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Input } from 'semantic-ui-react';
-import { QueryBuildHelper } from './QueryBuildHelper';
 
+// NOTE: Deprecated, when the last 2 cases are addressed AvailableItems in LoanDetails
+// and ItemSearch in PatronDetails this file will be deleted.
 class SearchBar extends Component {
   constructor(props) {
     super(props);
@@ -42,73 +43,60 @@ class SearchBar extends Component {
 
   render() {
     const {
-      buttonColor,
       currentQueryString,
       executeSearch: parentSearch,
       onKeyPressHandler,
       placeholder,
-      queryHelperFields,
       queryString,
       updateQueryOnChange,
       updateQueryString,
       ...otherProps
     } = this.props;
     const { currentValue } = this.state;
+    const searchAction = parentSearch || this.executeSearch;
     return (
-      <>
-        <Input
-          action={{
-            color: buttonColor,
-            icon: 'search',
-            onClick: parentSearch || this.executeSearch,
-          }}
-          size="big"
-          fluid
-          placeholder={placeholder}
-          onChange={(e, { value }) => this.onInputChange(value)}
-          value={currentValue}
-          onKeyPress={event =>
-            onKeyPressHandler
-              ? onKeyPressHandler(event)
-              : this.onKeyPressHandler(event)
-          }
-          ref={input => {
-            this.searchInput = input;
-          }}
-          {...otherProps}
-          className={`${otherProps.className} ils-searchbar`}
-        />
-        {queryHelperFields.length > 0 && (
-          <QueryBuildHelper
-            fields={queryHelperFields}
-            currentQueryString={currentQueryString || queryString}
-            updateQueryString={this.onInputChange}
-          />
-        )}
-      </>
+      <Input
+        action={{
+          icon: 'search',
+          onClick: searchAction,
+        }}
+        size="big"
+        fluid
+        placeholder={placeholder}
+        onChange={(e, { value }) => this.onInputChange(value)}
+        value={currentValue}
+        onKeyPress={event =>
+          onKeyPressHandler
+            ? onKeyPressHandler(event)
+            : this.onKeyPressHandler(event)
+        }
+        ref={input => {
+          this.searchInput = input;
+        }}
+        {...otherProps}
+        className={`${otherProps.className} ils-searchbar`}
+      />
     );
   }
 }
 
 SearchBar.propTypes = {
-  buttonColor: PropTypes.string,
-  executeSearch: PropTypes.func,
   currentQueryString: PropTypes.string,
+  executeSearch: PropTypes.func,
+  onInputChange: PropTypes.func,
   onKeyPressHandler: PropTypes.func,
   placeholder: PropTypes.string,
-  queryHelperFields: PropTypes.array,
   queryString: PropTypes.string,
   updateQueryOnChange: PropTypes.bool,
   updateQueryString: PropTypes.func.isRequired,
 };
 
 SearchBar.defaultProps = {
-  buttonColor: null,
   currentQueryString: null,
   executeSearch: null,
+  onInputChange: null,
   onKeyPressHandler: null,
   placeholder: 'Search for books, series, articles, publications...',
-  queryHelperFields: [],
   queryString: '',
   updateQueryOnChange: false,
 };
