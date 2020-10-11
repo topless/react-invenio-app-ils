@@ -1,7 +1,7 @@
 import { recordToPidType } from '@api/utils';
 import { Error } from '@components/Error';
 import { Loader } from '@components/Loader';
-import { SearchBar } from '@components/SearchBar';
+import { SearchBarILS } from '@components/SearchBar';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Container, Grid } from 'semantic-ui-react';
@@ -62,8 +62,6 @@ export default class ItemsSearch extends Component {
     }
   };
 
-  onSearchClickHandler = event => this.executeSearch();
-
   renderResultsList = results => {
     const { patronDetails, clearResults, isLoadingSearch } = this.props;
     const { executedSearch } = this.state;
@@ -87,27 +85,14 @@ export default class ItemsSearch extends Component {
   };
 
   render() {
-    const {
-      items,
-      isLoading,
-      error,
-      queryString,
-      updateQueryString,
-    } = this.props;
+    const { items, isLoading, error, queryString } = this.props;
     return (
       <>
         <Container className="spaced">
-          <SearchBar
-            action={{
-              icon: 'search',
-              onClick: this.onSearchClickHandler,
-            }}
-            currentQueryString={queryString}
-            updateQueryOnChange
-            executeSearch={this.executeSearch}
-            updateQueryString={updateQueryString}
+          <SearchBarILS
+            onSearchHandler={this.executeSearch}
             placeholder="Type or paste to search for physical copies..."
-            onPaste={e => this.onPasteHandler(e)}
+            onPasteHandler={this.onPasteHandler}
           />
         </Container>
         <Grid columns={1} stackable relaxed>
@@ -136,7 +121,6 @@ ItemsSearch.propTypes = {
   items: PropTypes.object,
   patronDetails: PropTypes.object.isRequired,
   queryString: PropTypes.string.isRequired,
-  updateQueryString: PropTypes.func.isRequired,
 };
 
 ItemsSearch.defaultProps = {
