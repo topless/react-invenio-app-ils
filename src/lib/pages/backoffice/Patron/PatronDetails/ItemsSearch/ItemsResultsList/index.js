@@ -3,9 +3,11 @@ import { connect } from 'react-redux';
 import ItemsResultsListComponent from './ItemsResultsList';
 
 const mapStateToProps = state => ({
+  isLoading: state.patronItemsSearch.isLoading,
   checkoutData: state.patronItemsCheckout.data,
   checkoutIsLoading: state.patronItemsCheckout.isLoading,
   checkoutHasError: state.patronItemsCheckout.hasError,
+  executedSearch: state.itemsSearchInput.executedSearch,
   results: state.itemsSearchInput.data,
 });
 

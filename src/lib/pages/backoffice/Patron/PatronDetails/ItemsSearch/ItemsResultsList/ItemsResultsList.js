@@ -187,12 +187,10 @@ ItemsResultsList.propTypes = {
   checkoutItem: PropTypes.func.isRequired,
   patronPid: PropTypes.string.isRequired,
   checkoutIsLoading: PropTypes.bool,
-  executedSearch: PropTypes.bool,
-  isLoading: PropTypes.bool,
+  executedSearch: PropTypes.bool.isRequired,
+  isLoading: PropTypes.bool.isRequired,
 };
 
 ItemsResultsList.defaultProps = {
   checkoutIsLoading: false,
-  isLoading: false,
-  executedSearch: false,
 };
