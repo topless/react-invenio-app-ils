@@ -12,7 +12,7 @@ export class HomeSearchBar extends Component {
   render() {
     return (
       <SearchBarILS
-        onSearch={this.onSearchExecute}
+        onSearchHandler={this.onSearchExecute}
         placeholder="Search for books, e-books, series, articles, publications..."
         className="fs-headline"
       />

@@ -170,7 +170,7 @@ class DocumentDetails extends Component {
         >
           <Container fluid className="literature-search-container">
             <Container>
-              <SearchBarILS onSearch={this.onSearchClick} />
+              <SearchBarILS onSearchHandler={this.onSearchClick} />
             </Container>
           </Container>
         </Overridable>

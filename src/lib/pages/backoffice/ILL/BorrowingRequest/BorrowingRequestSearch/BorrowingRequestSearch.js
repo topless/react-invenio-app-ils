@@ -21,7 +21,7 @@ import {
   SearchBar,
 } from 'react-searchkit';
 import { Container, Grid, Header } from 'semantic-ui-react';
-import { invenioConfig,setReactSearchKitInitialQueryState } from '@config';
+import { invenioConfig, setReactSearchKitInitialQueryState } from '@config';
 
 export class BorrowingRequestSearch extends Component {
   searchApi = new InvenioSearchApi({

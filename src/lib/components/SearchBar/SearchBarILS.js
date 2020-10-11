@@ -11,28 +11,28 @@ export class SearchBarILS extends Component {
     }
   }
 
-  onKeyPress = (event, input) => {
-    const { onSearch } = this.props;
+  onKeyPressHandler = (event, input) => {
+    const { onSearchHandler } = this.props;
     if (event.key === 'Enter') {
       const { currentValue } = this.state;
-      onSearch(currentValue);
+      onSearchHandler(currentValue);
     }
   };
 
-  onPaste = event => {
-    const { onSearch } = this.props;
+  onPasteHandler = event => {
+    const { onSearchHandler } = this.props;
     const queryString = (event.clipboardData || window.clipboardData).getData(
       'text'
     );
-    onSearch(queryString);
+    onSearchHandler(queryString);
   };
 
   render() {
     const {
       className: parentClass,
-      onKeyPress: parentKeyPress,
-      onSearch,
-      onPaste,
+      onKeyPressHandler: parentKeyPressHandler,
+      onSearchHandler,
+      onPasteHandler,
       placeholder,
       ...rest
     } = this.props;
@@ -41,13 +41,13 @@ export class SearchBarILS extends Component {
       <Input
         action={{
           icon: 'search',
-          onClick: () => onSearch(currentValue),
+          onClick: () => onSearchHandler(currentValue),
         }}
         onChange={(event, { value }) => {
           this.setState({ currentValue: value });
         }}
-        onKeyPress={parentKeyPress || this.onKeyPress}
-        onPaste={onPaste || this.onPaste}
+        onKeyPress={parentKeyPressHandler || this.onKeyPressHandler}
+        onPaste={onPasteHandler || this.onPasteHandler}
         fluid
         size="big"
         placeholder={placeholder}
@@ -62,16 +62,16 @@ export class SearchBarILS extends Component {
 }
 
 SearchBarILS.propTypes = {
-  onKeyPress: PropTypes.func,
-  onPaste: PropTypes.func,
-  onSearch: PropTypes.func.isRequired,
+  onKeyPressHandler: PropTypes.func,
+  onPasteHandler: PropTypes.func,
+  onSearchHandler: PropTypes.func.isRequired,
   placeholder: PropTypes.string,
   className: PropTypes.string,
 };
 
 SearchBarILS.defaultProps = {
-  onKeyPress: null,
-  onPaste: null,
+  onKeyPressHandler: null,
+  onPasteHandler: null,
   placeholder: '',
   className: '',
 };

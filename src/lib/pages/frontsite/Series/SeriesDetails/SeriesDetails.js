@@ -147,7 +147,7 @@ class SeriesDetails extends React.Component {
             executeSearch={this.onSearchClick}
           >
             <Container>
-              <SearchBarILS onSearch={this.onSearchClick} />
+              <SearchBarILS onSearchHandler={this.onSearchClick} />
             </Container>
           </Overridable>
         </Container>

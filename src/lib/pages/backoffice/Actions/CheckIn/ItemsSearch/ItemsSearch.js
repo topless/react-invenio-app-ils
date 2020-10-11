@@ -18,7 +18,7 @@ export default class ItemsSearch extends Component {
     return (
       <>
         <SearchBarILS
-          onSearch={this.executeCheckinAndClearInput}
+          onSearchHandler={this.executeCheckinAndClearInput}
           placeholder="Scan physical copy barcode to check-in..."
         />
 

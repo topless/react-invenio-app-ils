@@ -12,7 +12,7 @@ export default class CheckOutSearch extends Component {
   render() {
     return (
       <SearchBarILS
-        onSearch={this.executeCheckoutAndClearInput}
+        onSearchHandler={this.executeCheckoutAndClearInput}
         placeholder="Insert patron id/email or physical copy barcode to start check-out..."
       />
     );
