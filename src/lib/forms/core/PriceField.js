@@ -7,7 +7,7 @@ import { vocabularyApi } from '@api/vocabularies';
 import { withCancel } from '@api/utils';
 import _isEmpty from 'lodash/isEmpty';
 
-class PriceDropdown extends Component {
+class CurrencyDropdown extends Component {
   state = {
     isLoading: true,
     error: null,
@@ -15,6 +15,11 @@ class PriceDropdown extends Component {
   };
 
   componentDidMount() {
+    const {
+      field: { name, value },
+      form: { setFieldValue },
+    } = this.props;
+    setFieldValue(name, value ? value : invenioConfig.APP.defaultCurrency);
     this.fetchCurrencies();
   }
 
@@ -53,20 +58,7 @@ class PriceDropdown extends Component {
   };
 
   getAllOptions = (options, value) => {
-    const {
-      field: { required },
-    } = this.props;
     const { isLoading } = this.state;
-    if (!required) {
-      options = [
-        {
-          key: '',
-          value: undefined,
-          text: '-',
-        },
-        ...options,
-      ];
-    }
     if (!isLoading) {
       if (!_isEmpty(value) && !options.find(o => o.value === value)) {
         options.push({
@@ -82,7 +74,7 @@ class PriceDropdown extends Component {
 
   render() {
     const {
-      field: { name, value },
+      field: { name, value, onCurrencyChange },
       form: { touched, errors, setFieldValue },
       children: _,
       ...uiProps
@@ -99,7 +91,7 @@ class PriceDropdown extends Component {
         options={this.getAllOptions(currencies, value)}
         text={error && !currentValue && errorText}
         value={currentValue}
-        onChange={(_, { value }) => setFieldValue(name, value)}
+        onChange={(_, { value }) => onCurrencyChange(value, this.props)}
         error={!!errorText}
         loading={isLoading}
         {...uiProps}
@@ -108,19 +100,30 @@ class PriceDropdown extends Component {
   }
 }
 
-PriceDropdown.propTypes = {
+CurrencyDropdown.propTypes = {
   field: PropTypes.object.isRequired,
   form: PropTypes.object.isRequired,
+  onCurrencyChange: PropTypes.func.isRequired,
   children: PropTypes.node,
-  required: PropTypes.bool,
 };
 
-PriceDropdown.defaultProps = {
+CurrencyDropdown.defaultProps = {
   children: null,
-  required: false,
 };
 
 export class PriceField extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      currency: invenioConfig.APP.defaultCurrency,
+      value: undefined,
+    };
+  }
+
+  componentDidMout() {
+    this.afterStateChange();
+  }
+
   renderError = (errors, name, direction = 'above') => {
     const errorText = errors[name];
     return errorText
@@ -131,6 +134,30 @@ export class PriceField extends Component {
       : null;
   };
 
+  onCurrencyChange = (currency, parentProps) => {
+    const { form: setFieldValue, fieldpath } = parentProps;
+    this.setState({ currency: currency }, () =>
+      this.afterStateChange(setFieldValue, fieldpath)
+    );
+  };
+
+  onValueChange = (value, parentProps) => {
+    const { form: setFieldValue, fieldpath } = parentProps;
+    this.setState({ value: value }, () =>
+      this.afterStateChange(setFieldValue, fieldpath)
+    );
+  };
+
+  afterStateChange = (setFieldValue, fieldpath) => {
+    const { value, currency } = this.state;
+    if (value) {
+      setFieldValue(`${fieldpath}.currency`, currency);
+      setFieldValue(`${fieldpath}.value`, value);
+    } else {
+      setFieldValue(`${fieldpath}`, undefined);
+    }
+  };
+
   renderCurrencyLabel = () => {
     const {
       fieldPath,
@@ -139,8 +166,16 @@ export class PriceField extends Component {
       required,
     } = this.props;
     const name = `${fieldPath}.currency`;
+
     return canSelectCurrency ? (
-      <Field name={name} required={required} component={PriceDropdown} />
+      <Field
+        name={name}
+        required={required}
+        onChangeHandler={arg => {
+          console.log('onChangeHandler', arg);
+        }}
+        component={CurrencyDropdown}
+      />
     ) : (
       <Label name={name}>{defaultCurrency}</Label>
     );
@@ -158,7 +193,7 @@ export class PriceField extends Component {
       ...uiProps
     } = this.props;
     const {
-      form: { values, handleChange, handleBlur, errors, status, isSubmitting },
+      form: { values, handleBlur, errors, status, isSubmitting },
     } = props;
     return (
       <Form.Field
@@ -177,7 +212,9 @@ export class PriceField extends Component {
           labelPosition="left"
           id={`${fieldPath}.value`}
           name={`${fieldPath}.value`}
-          onChange={handleChange}
+          onChange={(_, { value }) => {
+            this.onValueChange(value, props);
+          }}
           onBlur={handleBlur}
           value={getIn(values, `${fieldPath}.value`, '')}
           {...uiProps}
