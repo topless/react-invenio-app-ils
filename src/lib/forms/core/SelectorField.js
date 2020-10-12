@@ -130,11 +130,12 @@ export class SelectorField extends Component {
           placeholder={placeholderText}
           icon={icon}
           error={
-            hasFieldError &&
-            !_isEmpty(error) && {
-              content: error,
-              pointing: 'above',
-            }
+            hasFieldError && !_isEmpty(error)
+              ? {
+                  content: error,
+                  pointing: 'above',
+                }
+              : null
           }
           {...selectorProps}
         />

@@ -75,7 +75,7 @@ class CurrencyDropdown extends Component {
   render() {
     const {
       field: { name, value, onCurrencyChange },
-      form: { touched, errors, setFieldValue },
+      form: { touched, errors },
       children: _,
       ...uiProps
     } = this.props;
@@ -103,7 +103,6 @@ class CurrencyDropdown extends Component {
 CurrencyDropdown.propTypes = {
   field: PropTypes.object.isRequired,
   form: PropTypes.object.isRequired,
-  onCurrencyChange: PropTypes.func.isRequired,
   children: PropTypes.node,
 };
 
@@ -135,16 +134,22 @@ export class PriceField extends Component {
   };
 
   onCurrencyChange = (currency, parentProps) => {
-    const { form: setFieldValue, fieldpath } = parentProps;
+    const {
+      field: { name },
+      form: { setFieldValue },
+    } = parentProps;
     this.setState({ currency: currency }, () =>
-      this.afterStateChange(setFieldValue, fieldpath)
+      this.afterStateChange(setFieldValue, name)
     );
   };
 
   onValueChange = (value, parentProps) => {
-    const { form: setFieldValue, fieldpath } = parentProps;
+    const {
+      field: { name },
+      form: { setFieldValue },
+    } = parentProps;
     this.setState({ value: value }, () =>
-      this.afterStateChange(setFieldValue, fieldpath)
+      this.afterStateChange(setFieldValue, `${name}.value`)
     );
   };
 
@@ -168,14 +173,7 @@ export class PriceField extends Component {
     const name = `${fieldPath}.currency`;
 
     return canSelectCurrency ? (
-      <Field
-        name={name}
-        required={required}
-        onChangeHandler={arg => {
-          console.log('onChangeHandler', arg);
-        }}
-        component={CurrencyDropdown}
-      />
+      <Field name={name} required={required} component={CurrencyDropdown} />
     ) : (
       <Label name={name}>{defaultCurrency}</Label>
     );
