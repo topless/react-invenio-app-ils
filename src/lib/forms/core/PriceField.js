@@ -74,8 +74,9 @@ class CurrencyDropdown extends Component {
 
   render() {
     const {
-      field: { name, value, onCurrencyChange },
+      field: { name, value },
       form: { touched, errors },
+      onCurrencyChange,
       children: _,
       ...uiProps
     } = this.props;
@@ -84,6 +85,7 @@ class CurrencyDropdown extends Component {
     const currentValue = value
       ? value
       : currencies.length && currencies[0].value;
+
     return (
       <Dropdown
         selection
@@ -91,7 +93,7 @@ class CurrencyDropdown extends Component {
         options={this.getAllOptions(currencies, value)}
         text={error && !currentValue && errorText}
         value={currentValue}
-        onChange={(_, { value }) => onCurrencyChange(value, this.props)}
+        onChange={(_, { currency }) => onCurrencyChange(currency, this.props)}
         error={!!errorText}
         loading={isLoading}
         {...uiProps}
@@ -103,6 +105,7 @@ class CurrencyDropdown extends Component {
 CurrencyDropdown.propTypes = {
   field: PropTypes.object.isRequired,
   form: PropTypes.object.isRequired,
+  onCurrencyChange: PropTypes.func.isRequired,
   children: PropTypes.node,
 };
 
@@ -111,16 +114,8 @@ CurrencyDropdown.defaultProps = {
 };
 
 export class PriceField extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      currency: invenioConfig.APP.defaultCurrency,
-      value: undefined,
-    };
-  }
-
   componentDidMout() {
-    this.afterStateChange();
+    console.log('componentDidMout');
   }
 
   renderError = (errors, name, direction = 'above') => {
@@ -138,32 +133,40 @@ export class PriceField extends Component {
       field: { name },
       form: { setFieldValue },
     } = parentProps;
-    this.setState({ currency: currency }, () =>
-      this.afterStateChange(setFieldValue, name)
-    );
+    //eslint-disable-next-line
+    debugger;
+    setFieldValue(name, currency);
+    // this.setState({ currency: currency }, () =>
+    //   this.afterStateChange(setFieldValue, name)
+    // );
   };
 
   onValueChange = (value, parentProps) => {
+    //eslint-disable-next-line
+    debugger;
+
     const {
       field: { name },
       form: { setFieldValue },
     } = parentProps;
-    this.setState({ value: value }, () =>
-      this.afterStateChange(setFieldValue, `${name}.value`)
-    );
+    setFieldValue(`${name}.value`, value);
+    // this.setState({ value: value });
+    // , () =>
+    //   this.afterStateChange(setFieldValue, `${name}.value`)
+    // );
   };
 
-  afterStateChange = (setFieldValue, fieldpath) => {
-    const { value, currency } = this.state;
-    if (value) {
-      setFieldValue(`${fieldpath}.currency`, currency);
-      setFieldValue(`${fieldpath}.value`, value);
-    } else {
-      setFieldValue(`${fieldpath}`, undefined);
-    }
-  };
+  // afterStateChange = (setFieldValue, fieldpath) => {
+  //   const { value, currency } = this.state;
+  //   if (value) {
+  //     setFieldValue(`${fieldpath}.currency`, currency);
+  //     setFieldValue(`${fieldpath}.value`, value);
+  //   } else {
+  //     setFieldValue(`${fieldpath}`, undefined);
+  //   }
+  // };
 
-  renderCurrencyLabel = () => {
+  renderCurrency = () => {
     const {
       fieldPath,
       defaultCurrency,
@@ -173,7 +176,12 @@ export class PriceField extends Component {
     const name = `${fieldPath}.currency`;
 
     return canSelectCurrency ? (
-      <Field name={name} required={required} component={CurrencyDropdown} />
+      <Field
+        name={name}
+        required={required}
+        onCurrencyChange={this.onCurrencyChange}
+        component={CurrencyDropdown}
+      />
     ) : (
       <Label name={name}>{defaultCurrency}</Label>
     );
@@ -206,7 +214,7 @@ export class PriceField extends Component {
           type="number"
           step="any"
           min="0"
-          label={this.renderCurrencyLabel()}
+          label={this.renderCurrency()}
           labelPosition="left"
           id={`${fieldPath}.value`}
           name={`${fieldPath}.value`}
